@@ -1,0 +1,39 @@
+package sky.pro.course3.homework.ru.hogwarts.school.service;
+
+import org.springframework.stereotype.Service;
+import sky.pro.course3.homework.ru.hogwarts.school.model.Faculty;
+import sky.pro.course3.homework.ru.hogwarts.school.repositories.FacultyRepository;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
+@Service("FacultyService")
+public class FacultyService {
+    private FacultyRepository facultyRepository;
+
+    public FacultyService(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+
+    public Faculty createFaculty(Faculty faculty) {
+        faculty.setId(-1);
+        return facultyRepository.save(faculty);
+    }
+
+    public Faculty readFaculty(long id) {
+        return facultyRepository.findById(id).orElseThrow();
+    }
+
+    public Faculty updateFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
+    }
+
+    public void deleteFaculty(long id) {
+        facultyRepository.deleteById(id);
+    }
+
+    public Collection<Faculty> getFacultiesByColor(String color) {
+        return facultyRepository.findAllByColor(color);
+    }
+}
